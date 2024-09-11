@@ -11,16 +11,15 @@ public class Task2 {
         String pointsFile = "src/main/java/task2/file2.txt";
 
         try {
-            // читает данные о круге из файла
-            BufferedReader circleReader = new BufferedReader(new FileReader(circleFile));
+            BufferedReader circleReader = new BufferedReader(new FileReader(circleFile)); // читаем данные об окружности из файла
+            // строка разбивается на части пробелом
             String[] circleCenter = circleReader.readLine().split(" ");
             double centerX = Double.parseDouble(circleCenter[0]);
             double centerY = Double.parseDouble(circleCenter[1]);
             double radius = Double.parseDouble(circleReader.readLine());
             circleReader.close();
 
-            // Считывание данных о точках из файла
-            BufferedReader pointsReader = new BufferedReader(new FileReader(pointsFile));
+            BufferedReader pointsReader = new BufferedReader(new FileReader(pointsFile)); // читаем данные  из файла о точках
             String line;
             ArrayList<String> results = new ArrayList<>();
 
@@ -28,20 +27,26 @@ public class Task2 {
                 String[] point = line.split(" ");
                 double pointX = Double.parseDouble(point[0]);
                 double pointY = Double.parseDouble(point[1]);
+
+                // квадрат расстояния от точки до центра окружности
                 double distanceSquared = Math.pow(pointX - centerX, 2) + Math.pow(pointY - centerY, 2);
+                //  квадрат радиуса окружности
                 double radiusSquared = Math.pow(radius, 2);
 
+                // квадрат расстояния меньше квадрата радиуса, точка внутри окружности
                 if (distanceSquared < radiusSquared) {
                     results.add("1");
+                // равны, точка внутри окружности
                 } else if (distanceSquared == radiusSquared) {
                     results.add("0");
+                // больше, точка снаружи окружности
                 } else {
                     results.add("2");
                 }
             }
             pointsReader.close();
 
-            // Вывод результатов
+            //  результаты:
             for (String result : results) {
                 System.out.println(result);
             }
